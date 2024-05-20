@@ -1,0 +1,16 @@
+{
+  "version": 2,
+  "dgSpecHash": "HO7zD2rOxKp7FnqWwqSJewHwM1zN87cSvEW3VWr8Lfe739y5KSdaiDbNeK42X9R1LI+b+/2W98sXw1qxc8sNYQ==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Quint\\Downloads\\ULTRAExtractor-main (2)\\ULTRAExtractor-main\\Source\\AssetRipper.Tools.FileExtractor\\AssetRipper.Tools.FileExtractor.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Quint\\.nuget\\packages\\assetripper.primitives\\3.1.0\\assetripper.primitives.3.1.0.nupkg.sha512",
+    "C:\\Users\\Quint\\.nuget\\packages\\k4os.compression.lz4\\1.3.8\\k4os.compression.lz4.1.3.8.nupkg.sha512",
+    "C:\\Users\\Quint\\.nuget\\packages\\microsoft.net.illink.tasks\\8.0.2\\microsoft.net.illink.tasks.8.0.2.nupkg.sha512",
+    "C:\\Users\\Quint\\.nuget\\packages\\sharpcompress\\0.37.2\\sharpcompress.0.37.2.nupkg.sha512",
+    "C:\\Users\\Quint\\.nuget\\packages\\system.text.encodings.web\\8.0.0\\system.text.encodings.web.8.0.0.nupkg.sha512",
+    "C:\\Users\\Quint\\.nuget\\packages\\system.text.json\\8.0.1\\system.text.json.8.0.1.nupkg.sha512",
+    "C:\\Users\\Quint\\.nuget\\packages\\zstdsharp.port\\0.8.0\\zstdsharp.port.0.8.0.nupkg.sha512"
+  ],
+  "logs": []
+}

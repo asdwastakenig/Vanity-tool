@@ -1,0 +1,17 @@
+{
+  "version": 2,
+  "dgSpecHash": "GGnAKGKgWY3dxLSJB9GXv9aJMCYXPMYvT04HU6H/o/PIx0sUG2Pbnis1bKJY7hjtjwk4BlIDXo0Ujg2kUlhHaQ==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Quint\\Downloads\\ULTRAExtractor-main (2)\\ULTRAExtractor-main\\Source\\AssetRipper.SerializationLogic\\AssetRipper.SerializationLogic.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Quint\\.nuget\\packages\\asmresolver\\5.5.1\\asmresolver.5.5.1.nupkg.sha512",
+    "C:\\Users\\Quint\\.nuget\\packages\\asmresolver.dotnet\\5.5.1\\asmresolver.dotnet.5.5.1.nupkg.sha512",
+    "C:\\Users\\Quint\\.nuget\\packages\\asmresolver.pe\\5.5.1\\asmresolver.pe.5.5.1.nupkg.sha512",
+    "C:\\Users\\Quint\\.nuget\\packages\\asmresolver.pe.file\\5.5.1\\asmresolver.pe.file.5.5.1.nupkg.sha512",
+    "C:\\Users\\Quint\\.nuget\\packages\\microsoft.net.illink.tasks\\8.0.2\\microsoft.net.illink.tasks.8.0.2.nupkg.sha512",
+    "C:\\Users\\Quint\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\6.0.0\\system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512",
+    "C:\\Users\\Quint\\.nuget\\packages\\system.text.encodings.web\\6.0.0\\system.text.encodings.web.6.0.0.nupkg.sha512",
+    "C:\\Users\\Quint\\.nuget\\packages\\system.text.json\\6.0.8\\system.text.json.6.0.8.nupkg.sha512"
+  ],
+  "logs": []
+}

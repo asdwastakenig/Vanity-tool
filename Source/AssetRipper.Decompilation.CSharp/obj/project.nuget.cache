@@ -1,0 +1,25 @@
+{
+  "version": 2,
+  "dgSpecHash": "xANb4CbArH16j00SruCeduPGuw2FqcvjsG3/9Sz0K101OzYpL4yFHYO52C/EzMDEPULxEzcZ2WH4XKcQ5xBaug==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Quint\\Downloads\\ULTRAExtractor-main (2)\\ULTRAExtractor-main\\Source\\AssetRipper.Decompilation.CSharp\\AssetRipper.Decompilation.CSharp.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Quint\\.nuget\\packages\\asmresolver\\5.5.1\\asmresolver.5.5.1.nupkg.sha512",
+    "C:\\Users\\Quint\\.nuget\\packages\\asmresolver.dotnet\\5.5.1\\asmresolver.dotnet.5.5.1.nupkg.sha512",
+    "C:\\Users\\Quint\\.nuget\\packages\\asmresolver.pe\\5.5.1\\asmresolver.pe.5.5.1.nupkg.sha512",
+    "C:\\Users\\Quint\\.nuget\\packages\\asmresolver.pe.file\\5.5.1\\asmresolver.pe.file.5.5.1.nupkg.sha512",
+    "C:\\Users\\Quint\\.nuget\\packages\\assetripper.text.sourcegeneration\\1.1.0\\assetripper.text.sourcegeneration.1.1.0.nupkg.sha512",
+    "C:\\Users\\Quint\\.nuget\\packages\\echo\\0.9.0.1\\echo.0.9.0.1.nupkg.sha512",
+    "C:\\Users\\Quint\\.nuget\\packages\\echo.ast\\0.9.0.1\\echo.ast.0.9.0.1.nupkg.sha512",
+    "C:\\Users\\Quint\\.nuget\\packages\\echo.controlflow\\0.9.0.1\\echo.controlflow.0.9.0.1.nupkg.sha512",
+    "C:\\Users\\Quint\\.nuget\\packages\\echo.dataflow\\0.9.0.1\\echo.dataflow.0.9.0.1.nupkg.sha512",
+    "C:\\Users\\Quint\\.nuget\\packages\\echo.platforms.asmresolver\\0.9.0.1\\echo.platforms.asmresolver.0.9.0.1.nupkg.sha512",
+    "C:\\Users\\Quint\\.nuget\\packages\\microsoft.net.illink.tasks\\8.0.2\\microsoft.net.illink.tasks.8.0.2.nupkg.sha512",
+    "C:\\Users\\Quint\\.nuget\\packages\\system.collections.immutable\\1.7.1\\system.collections.immutable.1.7.1.nupkg.sha512",
+    "C:\\Users\\Quint\\.nuget\\packages\\system.memory\\4.5.5\\system.memory.4.5.5.nupkg.sha512",
+    "C:\\Users\\Quint\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\6.0.0\\system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512",
+    "C:\\Users\\Quint\\.nuget\\packages\\system.text.encodings.web\\6.0.0\\system.text.encodings.web.6.0.0.nupkg.sha512",
+    "C:\\Users\\Quint\\.nuget\\packages\\system.text.json\\6.0.8\\system.text.json.6.0.8.nupkg.sha512"
+  ],
+  "logs": []
+}

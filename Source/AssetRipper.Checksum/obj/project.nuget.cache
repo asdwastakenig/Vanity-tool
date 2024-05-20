@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "BtZZgV9AS+l4dULbu3P3PzXkXZRU+qdmh/kI4N1TRcCPN1f7zBeRNG/FRuKruj4S9ISFGRINg5UA4c36C1mXZQ==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Quint\\Downloads\\ULTRAExtractor-main (2)\\ULTRAExtractor-main\\Source\\AssetRipper.Checksum\\AssetRipper.Checksum.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Quint\\.nuget\\packages\\microsoft.net.illink.tasks\\8.0.2\\microsoft.net.illink.tasks.8.0.2.nupkg.sha512",
+    "C:\\Users\\Quint\\.nuget\\packages\\system.io.hashing\\8.0.0\\system.io.hashing.8.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}

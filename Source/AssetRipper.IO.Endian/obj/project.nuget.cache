@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "dgSpecHash": "1Fx7fI3VA+kvtTx77+zyJE/cV88P1o1m/WuJiKW2CIEEFvr/7qfoW6tmTrWBXzQrDaQvW4WLcmfkbn/MeoiHaA==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Quint\\Downloads\\ULTRAExtractor-main (2)\\ULTRAExtractor-main\\Source\\AssetRipper.IO.Endian\\AssetRipper.IO.Endian.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Quint\\.nuget\\packages\\assetripper.primitives\\3.1.0\\assetripper.primitives.3.1.0.nupkg.sha512",
+    "C:\\Users\\Quint\\.nuget\\packages\\microsoft.net.illink.tasks\\8.0.2\\microsoft.net.illink.tasks.8.0.2.nupkg.sha512",
+    "C:\\Users\\Quint\\.nuget\\packages\\system.text.encodings.web\\8.0.0\\system.text.encodings.web.8.0.0.nupkg.sha512",
+    "C:\\Users\\Quint\\.nuget\\packages\\system.text.json\\8.0.1\\system.text.json.8.0.1.nupkg.sha512"
+  ],
+  "logs": []
+}

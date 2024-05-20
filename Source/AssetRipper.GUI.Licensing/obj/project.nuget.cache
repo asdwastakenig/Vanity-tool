@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "hN5ibY8dkQ27/qK9PX5KsaP/s/5DCKAKca9u0npe9S9grkZD6S4jzr8UD25nDjX7HZNYZoZ5BlL9Q/0oo9vV4w==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Quint\\Downloads\\ULTRAExtractor-main (2)\\ULTRAExtractor-main\\Source\\AssetRipper.GUI.Licensing\\AssetRipper.GUI.Licensing.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Quint\\.nuget\\packages\\microsoft.net.illink.tasks\\8.0.2\\microsoft.net.illink.tasks.8.0.2.nupkg.sha512"
+  ],
+  "logs": []
+}

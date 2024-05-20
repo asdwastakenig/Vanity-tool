@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "LRD9U1eZuxOjNbJYKgslQgQcn/vYtshqh3GBvAhA9Bi/soXNy84RHdwurvv+TZ5MAq1YQedmMkL1bjkqf31SQw==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Quint\\Downloads\\ULTRAExtractor-main (2)\\ULTRAExtractor-main\\Source\\AssetRipper.IO.Endian.SourceGenerator\\AssetRipper.IO.Endian.SourceGenerator.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Quint\\.nuget\\packages\\assetripper.text.sourcegeneration\\1.1.0\\assetripper.text.sourcegeneration.1.1.0.nupkg.sha512",
+    "C:\\Users\\Quint\\.nuget\\packages\\microsoft.net.illink.tasks\\8.0.2\\microsoft.net.illink.tasks.8.0.2.nupkg.sha512"
+  ],
+  "logs": []
+}

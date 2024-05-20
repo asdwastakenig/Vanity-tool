@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "WY4ZXF+Qd6to2+TS1ZZ4rQfwg22Zcl5z6GpYAls90qKE5GSALPTbg5YPjf9QRAuSXgbVftjytcwA7ENLcU0VvQ==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Quint\\Downloads\\ULTRAExtractor-main (2)\\ULTRAExtractor-main\\Source\\AssetRipper.Export.Modules.Audio\\AssetRipper.Export.Modules.Audio.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Quint\\.nuget\\packages\\microsoft.net.illink.tasks\\8.0.2\\microsoft.net.illink.tasks.8.0.2.nupkg.sha512"
+  ],
+  "logs": []
+}

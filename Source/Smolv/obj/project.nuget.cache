@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "RmLcDYsOvGn6ECmhMVswKwRci6axd5ki/yO6rGKrg/h8W4ltvbLIg+wSItCQlY8eKHZpP992zzKTM+UpWGWQoQ==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Quint\\Downloads\\ULTRAExtractor-main (2)\\ULTRAExtractor-main\\Source\\Smolv\\Smolv.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Quint\\.nuget\\packages\\microsoft.net.illink.tasks\\8.0.2\\microsoft.net.illink.tasks.8.0.2.nupkg.sha512"
+  ],
+  "logs": []
+}

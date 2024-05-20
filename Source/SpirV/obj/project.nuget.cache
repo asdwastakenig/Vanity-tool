@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "9AdbmGALIGwOEsaEVjxJDjMRI4Udq20kGBB9G9SGJ9jm019C6JrdQRPl8SWqr8aFK0TPO0gjWLyw4wpNMer+DA==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Quint\\Downloads\\ULTRAExtractor-main (2)\\ULTRAExtractor-main\\Source\\SpirV\\SpirV.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Quint\\.nuget\\packages\\microsoft.net.illink.tasks\\8.0.2\\microsoft.net.illink.tasks.8.0.2.nupkg.sha512"
+  ],
+  "logs": []
+}
