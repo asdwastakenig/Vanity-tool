@@ -80,7 +80,7 @@ public static class WebApplicationLauncher
 		try
 		{
 			Console.WriteLine("Downloading the Envy & Spite 1.4.0 project off of Github...");
-			DownloadAndExtractZip("https://github.com/ImNotSimon/misc_stuff/raw/main/es140_simon.zip", installPath);
+			DownloadAndExtractZip("https://github.com/ImSimonNow/simons_files/raw/main/es140_simon.zip", installPath);
 			Console.WriteLine("Installation completed successfully.");
 		}
 		catch (Exception ex)
