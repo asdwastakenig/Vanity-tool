@@ -158,7 +158,7 @@ public static class WebApplicationLauncher
 		}
 		catch (Exception ex)
 		{
-			Console.WritLine("Failed to delete the NewBlood folder. Either it wasn't found or it failed creating everything. Restart and try again");
+			Console.WriteLine("Failed to delete the NewBlood folder. Either it wasn't found or it failed creating everything. Restart and try again");
 			Console.ReadLine();
 			Environment.Exit(0);
 		}
