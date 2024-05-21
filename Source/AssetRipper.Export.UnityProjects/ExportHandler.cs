@@ -179,7 +179,6 @@ public class ExportHandler
 			}
 			catch (DirectoryNotFoundException)
 			{
-				Console.WriteLine("Folder not found: " + folder);
 			}
 		}
 	}
