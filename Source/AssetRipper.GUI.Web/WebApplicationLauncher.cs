@@ -85,8 +85,9 @@ public static class WebApplicationLauncher
 		}
 		catch (Exception ex)
 		{
-			Console.WriteLine($"An error occurred: {ex.Message}");
-			Console.ReadKey();
+			Console.WriteLine($"An error occurred: {ex.Message}. Either the file is down or your internet is messed up. Restart and try again.");
+			Console.ReadLine();
+			Environment.Exit(0);
 		}
 
 		string assetsPath = Path.Combine(installPath, "E&S 1.4.0\\Assets");
@@ -102,8 +103,9 @@ public static class WebApplicationLauncher
 		}
 		catch (Exception ex)
 		{
-			Console.WriteLine($"Error: {ex.Message}");
-			Console.ReadKey();
+			Console.WriteLine($"Error: {ex.Message}. Your path is probably invalid or something went incredibly wrong. \nPlease restart and try again");
+			Console.ReadLine();
+			Environment.Exit(0);
 		}
 
 		string UKAssets = Path.Combine(assetsPath, "ULTRAKILL Assets");
@@ -116,8 +118,9 @@ public static class WebApplicationLauncher
 		}
 		catch (Exception ex)
 		{
-			Console.WriteLine($"Error: {ex.Message}");
-			Console.ReadKey();
+			Console.WriteLine($"Error: {ex.Message}. It failed to export assets for whatever reason.");
+			Console.ReadLine();
+			Environment.Exit(0);
 		}
 
 		Console.WriteLine("Deleting unnecessary folders...");
@@ -141,8 +144,9 @@ public static class WebApplicationLauncher
 		}
 		catch (Exception ex)
 		{
-			Console.WriteLine($"Error: {ex.Message}");
-			Console.ReadKey();
+			Console.WriteLine($"Error: {ex.Message}. Vanity failed to delete error-causing folders. Please restart & try again.");
+			Console.ReadLine();
+			Environment.Exit(0);
 		}
 
 		Console.WriteLine("Doing more post-processing...");
@@ -154,7 +158,9 @@ public static class WebApplicationLauncher
 		}
 		catch (Exception ex)
 		{
-			Logger.Error(LogCategory.Export, $"Failed to delete NewBlood folder: {ex.Message}");
+			Console.WritLine("Failed to delete the NewBlood folder. Either it wasn't found or it failed creating everything. Restart and try again");
+			Console.ReadLine();
+			Environment.Exit(0);
 		}
 		SearchAndModifyMetaFiles(UKAssets);
 		string incorrectPath = Path.Combine(UKAssets, "ExportedProject", "Assets", "Scripts");
@@ -185,29 +191,26 @@ public static class WebApplicationLauncher
 		}
 		catch (Exception ex)
 		{
-			Console.WriteLine("oops a part of post processing failed");
+			Console.WriteLine($"Error{ex.Message}. Post processing (or, a part of it) failed.");
+			Console.ReadLine();
+			Environment.Exit(0);
 		}
-		Console.WriteLine($"It's done! Envy & Spite 1.4.0 has been sucessfully set up! Now open {projectPath} in Unity Hub to open the editor.\n Press any key to exit.");
+		Console.WriteLine($"It's done! Envy & Spite 1.4.0 has been sucessfully set up! Now open {projectPath} in Unity Hub to open the editor.\n Press enter to exit.");
 		Console.ReadKey();
 	}
 	public static void RecursiveSearchAndDelete(string directoryPath, string fileName)
 	{
 		try
 		{
-			// Check if the directory exists
 			if (Directory.Exists(directoryPath))
 			{
-				// Search for the file in the current directory
 				string[] files = Directory.GetFiles(directoryPath, fileName);
 
-				// Delete the file if found
 				foreach (string file in files)
 				{
 					Console.WriteLine($"Deleting file: {file}");
 					File.Delete(file);
 				}
-
-				// Recursively search in subdirectories
 				string[] subDirectories = Directory.GetDirectories(directoryPath);
 				foreach (string subDirectory in subDirectories)
 				{
@@ -229,7 +232,6 @@ public static class WebApplicationLauncher
 	{
 		try
 		{
-			// Search for .meta files in the current directory
 			string[] metaFiles = Directory.GetFiles(directoryPath, "*.meta");
 
 			foreach (string metaFile in metaFiles)
@@ -237,7 +239,6 @@ public static class WebApplicationLauncher
 				ModifyMetaFile(metaFile);
 			}
 
-			// Recursively search in subdirectories
 			string[] subdirectories = Directory.GetDirectories(directoryPath);
 			foreach (string subdirectory in subdirectories)
 			{
@@ -246,7 +247,9 @@ public static class WebApplicationLauncher
 		}
 		catch (Exception ex)
 		{
-			Console.WriteLine($"Error: {ex.Message}");
+			Console.WriteLine($"Error: {ex.Message}. Bundle fixing failed. Restart and try again.");
+			Console.ReadLine();
+			Environment.Exit(0);
 		}
 	}
 
