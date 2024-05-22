@@ -1,0 +1,39 @@
+{
+  "Import": {
+    "ScriptContentLevel": 1,
+    "StreamingAssetsMode": 1,
+    "DefaultVersion": {
+      "Major": 0,
+      "Minor": 0,
+      "Build": 0,
+      "Type": 0,
+      "TypeNumber": 0
+    },
+    "TargetVersion": {
+      "Major": 0,
+      "Minor": 0,
+      "Build": 0,
+      "Type": 0,
+      "TypeNumber": 0
+    },
+    "BundledAssetsExportMode": 0
+  },
+  "Processing": {
+    "EnablePrefabOutlining": false,
+    "EnableStaticMeshSeparation": true,
+    "EnableAssetDeduplication": true
+  },
+  "Export": {
+    "AudioExportFormat": 2,
+    "ImageExportFormat": 4,
+    "LightmapTextureExportFormat": 2,
+    "MeshExportFormat": 0,
+    "ScriptExportMode": 0,
+    "ScriptLanguageVersion": -1,
+    "ShaderExportMode": 0,
+    "SpriteExportMode": 0,
+    "TerrainExportMode": 0,
+    "TextExportMode": 2,
+    "SaveSettingsToDisk": true
+  }
+}
