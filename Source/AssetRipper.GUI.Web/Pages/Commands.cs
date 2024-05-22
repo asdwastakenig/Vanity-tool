@@ -121,19 +121,29 @@ namespace AssetRipper.GUI.Web.Pages
 
 			private static void RemoveFiles(string folderPath)
 			{
-				// Remove files starting with specialscenes*
 				foreach (string file in Directory.GetFiles(folderPath, "specialscenes*", SearchOption.AllDirectories))
 				{
-					File.Delete(file);
+					if (WebApplicationLauncher.exportScenes == true)
+					{
+						if (!file.EndsWith("specialscenes_scenes_uk_construct.bundle") || !file.EndsWith("specialscenes_scenes_creditsmuseum2.bundle"))
+						{
+							File.Delete(file);
+						}
+					}
+					else
+					{
+						File.Delete(file);
+					}
 				}
 
-				// Remove files starting with campaign_scenes*
-				foreach (string file in Directory.GetFiles(folderPath, "campaign_scenes*", SearchOption.AllDirectories))
+				if (WebApplicationLauncher.exportScenes == false)
 				{
-					File.Delete(file);
+					foreach (string file in Directory.GetFiles(folderPath, "campaign_scenes*", SearchOption.AllDirectories))
+					{
+						File.Delete(file);
+					}
 				}
 
-				// Remove every file starting with music_assets except "music_assets_.bundle"
 				foreach (string file in Directory.GetFiles(folderPath, "music_assets*", SearchOption.AllDirectories))
 				{
 					if (!file.EndsWith("music_assets_.bundle"))
