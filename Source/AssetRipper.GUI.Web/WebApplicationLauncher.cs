@@ -35,6 +35,7 @@ public static class WebApplicationLauncher
 		public const int Port = 0;
 		public const bool LaunchBrowser = true;
 	}
+	public static bool exportScenes = false;
 
 	public static void Launch(string[] args)
 	{
@@ -73,130 +74,176 @@ public static class WebApplicationLauncher
 
 	public static void Launch()
 	{
-		WelcomeMessage.Print();
-		Console.Write("Please enter the full path to the location where you want to install Envy & Spite: ");
-		string installPath = Console.ReadLine();
-		Console.WriteLine(installPath);
-		try
+		using (StreamWriter logWriter = new StreamWriter("latestlog.txt", true))
 		{
-			Console.WriteLine("Downloading the Envy & Spite 1.4.0 project off of Github...");
-			DownloadAndExtractZip("https://github.com/ImSimonNow/simons_files/raw/main/es140_simon.zip", installPath);
-			Console.WriteLine("Installation completed successfully.");
-		}
-		catch (Exception ex)
-		{
-			Console.WriteLine($"An error occurred: {ex.Message}. Either the file is down or your internet is messed up. Restart and try again.");
-			Console.ReadLine();
-			Environment.Exit(0);
-		}
-
-		string assetsPath = Path.Combine(installPath, "E&S 1.4.0\\Assets");
-		string projectPath = Path.Combine(installPath, "E&S 1.4.0\\");
-		Console.WriteLine("The path to your Assets path is: " + assetsPath + "(don't worry it's debug stuff :))");
-		Console.WriteLine("--EXTRACTION PHASE--");
-		Console.WriteLine("Enter the FULL PATH to your ULTRAKILL_Data folder (e.g:C:\\ULTRAKILL\\ULTRAKILL_Data):");
-		string ukDataPath = Console.ReadLine();
-		Console.WriteLine("Attempting to load the folder...");
-		try
-		{
-			LoadFolder.Execute(ukDataPath);
-		}
-		catch (Exception ex)
-		{
-			Console.WriteLine($"Error: {ex.Message}. Your path is probably invalid or something went incredibly wrong. \nPlease restart and try again");
-			Console.ReadLine();
-			Environment.Exit(0);
-		}
-
-		string UKAssets = Path.Combine(assetsPath, "ULTRAKILL Assets");
-		Console.WriteLine("Imported ULTRAKILL_Data folder. Creating: " + UKAssets);
-		Directory.CreateDirectory(UKAssets);
-		Console.WriteLine("Attempting to export all assets (hope you like waiting)...");
-		try
-		{
-			GameFileLoader.Export(UKAssets);
-		}
-		catch (Exception ex)
-		{
-			Console.WriteLine($"Error: {ex.Message}. It failed to export assets for whatever reason.");
-			Console.ReadLine();
-			Environment.Exit(0);
-		}
-
-		Console.WriteLine("Deleting unnecessary folders...");
-		string packages = Path.Combine(UKAssets, "ExportedProject", "Packages");
-		string projset = Path.Combine(UKAssets, "ExportedProject", "ProjectSettings");
-		string auxiliaryFiles = Path.Combine(UKAssets, "AuxiliaryFiles");
-		try
-		{
-			if (Directory.Exists(auxiliaryFiles))
+			void Log(string message)
 			{
-				Directory.Delete(auxiliaryFiles, true);
+				Console.WriteLine(message);
+				logWriter.WriteLine(message);
 			}
-			if (Directory.Exists(packages))
+
+			WelcomeMessage.Print();
+			Log("Please enter the full path to the location where you want to install Envy & Spite: ");
+			string installPath = Console.ReadLine();
+			logWriter.WriteLine(installPath);
+
+			try
 			{
-				Directory.Delete(packages, true);
+				Log("Downloading the Envy & Spite 1.4.0 project off of Github...");
+				DownloadAndExtractZip("https://github.com/ImSimonNow/simons_files/raw/main/es140_simon.zip", installPath);
+				Log("Installation completed successfully.");
 			}
-			if (Directory.Exists(projset))
+			catch (Exception ex)
 			{
-				Directory.Delete(projset, true);
+				Log($"An error occurred: {ex.Message}. Either the file is down or your internet is messed up. Restart and try again.");
+				Console.ReadLine();
+				logWriter.Close();
+				Environment.Exit(0);
 			}
-		}
-		catch (Exception ex)
-		{
-			Console.WriteLine($"Error: {ex.Message}. Vanity failed to delete error-causing folders. Please restart & try again.");
-			Console.ReadLine();
-			Environment.Exit(0);
-		}
 
-		Console.WriteLine("Doing more post-processing...");
-		string shittynewbloodfolder = Path.Combine(UKAssets, "ExportedProject", "Assets", "Scripts", "Assembly-CSharp", "NewBlood");
-		try
-		{
-			Directory.Delete(shittynewbloodfolder, true);
-			Logger.Info(LogCategory.Export, $"Deleted NewBlood folder: {shittynewbloodfolder}");
-		}
-		catch (Exception ex)
-		{
-			Console.WriteLine("Failed to delete the NewBlood folder. Either it wasn't found or it failed creating everything. Restart and try again");
-			Console.ReadLine();
-			Environment.Exit(0);
-		}
-		SearchAndModifyMetaFiles(UKAssets);
-		string incorrectPath = Path.Combine(UKAssets, "ExportedProject", "Assets", "Scripts");
-		string libPath = Path.Combine(installPath, "E&S 1.4.0\\Library\\PackageCache");
-		Console.WriteLine("GUID Patching (THIS USUALLY TAKES A WHILE!)");
-		string guidArguments = $"\"{incorrectPath}\" \"{libPath}\" \"{assetsPath}\"";
-		using (Process process = System.Diagnostics.Process.Start(@"GUID_Corrector.exe", guidArguments))
-		{
-			process.WaitForExit();
+			string assetsPath = Path.Combine(installPath, "E&S 1.4.0\\Assets");
+			string projectPath = Path.Combine(installPath, "E&S 1.4.0\\");
+			Log("The path to your Assets path is: " + assetsPath + "(don't worry it's debug stuff :))");
+			Log("--EXTRACTION PHASE--");
+			Log("Enter the FULL PATH to your ULTRAKILL_Data folder (e.g:C:\\ULTRAKILL\\ULTRAKILL_Data):");
+			string ukDataPath = Console.ReadLine();
+			logWriter.WriteLine(ukDataPath);
 
-			int exitCode = process.ExitCode;
+			Log("Do you want to enable scene exporting [Y\\N]? WARNING: Scene exporting is INCREDIBLY HEAVY! Main downsides are: \n-having 200k or more meshes in the exported assets.\n-duplicate assets.\n-having to use a third party tool to separate meshes from scenes.\n-importing taking much longer.\n-scene names are garbled (ex. 7-3's scene name starts with a952d42adc)\nBUT you'll be able to see how certain things in certain levels are done.\n So, do you want to enable scene exporting? [Y\\N]:");
+			char inputChar;
+			try
+			{
+				inputChar = Convert.ToChar(Console.ReadLine());
+				logWriter.WriteLine(inputChar);
+				inputChar = Char.ToLower(inputChar);
+				if (inputChar == 'y')
+				{
+					Log("Scene exporting enabled. You've been warned.");
+					exportScenes = true;
+				}
+				else if (inputChar == 'n')
+				{
+					Log("Scene exporting disabled.");
+					exportScenes = false;
+				}
+				else
+				{
+					throw new Exception();
+				}
+			}
+			catch (Exception ex)
+			{
+				Log("Invalid input, assuming \"No\"");
+				exportScenes = false;
+			}
 
-			Console.WriteLine($"GUID_Corrector.exe process exited with code {exitCode}");
+			Log("Attempting to load the folder...");
+			try
+			{
+				LoadFolder.Execute(ukDataPath);
+			}
+			catch (Exception ex)
+			{
+				Log($"Error: {ex.Message}. Your path is probably invalid or something went incredibly wrong. \nPlease restart and try again");
+				Console.ReadLine();
+				logWriter.Close();
+				Environment.Exit(0);
+			}
+
+			string UKAssets = Path.Combine(assetsPath, "ULTRAKILL Assets");
+			Log("Imported ULTRAKILL_Data folder. Creating: " + UKAssets);
+			Directory.CreateDirectory(UKAssets);
+			Log("Attempting to export all assets (hope you like waiting)...");
+			try
+			{
+				GameFileLoader.Export(UKAssets);
+			}
+			catch (Exception ex)
+			{
+				Log($"Error: {ex.Message}. It failed to export assets for whatever reason.");
+				Console.ReadLine();
+				logWriter.Close();
+				Environment.Exit(0);
+			}
+
+			Log("Deleting unnecessary folders...");
+			string packages = Path.Combine(UKAssets, "ExportedProject", "Packages");
+			string projset = Path.Combine(UKAssets, "ExportedProject", "ProjectSettings");
+			string auxiliaryFiles = Path.Combine(UKAssets, "AuxiliaryFiles");
+			try
+			{
+				if (Directory.Exists(auxiliaryFiles))
+				{
+					Directory.Delete(auxiliaryFiles, true);
+				}
+				if (Directory.Exists(packages))
+				{
+					Directory.Delete(packages, true);
+				}
+				if (Directory.Exists(projset))
+				{
+					Directory.Delete(projset, true);
+				}
+			}
+			catch (Exception ex)
+			{
+				Log($"Error: {ex.Message}. Vanity failed to delete error-causing folders. Please restart & try again.");
+				Console.ReadLine();
+				logWriter.Close();
+				Environment.Exit(0);
+			}
+
+			Log("Doing more post-processing...");
+			string shittynewbloodfolder = Path.Combine(UKAssets, "ExportedProject", "Assets", "Scripts", "Assembly-CSharp", "NewBlood");
+			try
+			{
+				Directory.Delete(shittynewbloodfolder, true);
+				Logger.Info(LogCategory.Export, $"Deleted NewBlood folder: {shittynewbloodfolder}");
+			}
+			catch (Exception ex)
+			{
+				Log("Failed to delete the NewBlood folder. Either it wasn't found or it failed creating everything. Restart and try again");
+				Console.ReadLine();
+				logWriter.Close();
+				Environment.Exit(0);
+			}
+			SearchAndModifyMetaFiles(UKAssets);
+			string incorrectPath = Path.Combine(UKAssets, "ExportedProject", "Assets", "Scripts");
+			string libPath = Path.Combine(installPath, "E&S 1.4.0\\Library\\PackageCache");
+			Log("GUID Patching (THIS USUALLY TAKES A WHILE!)");
+			string guidArguments = $"\"{incorrectPath}\" \"{libPath}\" \"{assetsPath}\"";
+			using (Process process = System.Diagnostics.Process.Start(@"GUID_Corrector.exe", guidArguments))
+			{
+				process.WaitForExit();
+
+				int exitCode = process.ExitCode;
+
+				Log($"GUID_Corrector.exe process exited with code {exitCode}");
+			}
+			string probuildershit1 = Path.Combine(incorrectPath + "\\Unity.ProBuilder");
+			string probuildershit2 = Path.Combine(incorrectPath + "\\Unity.ProBuilder.KdTree");
+			string probuildershit3 = Path.Combine(incorrectPath + "\\Unity.ProBuilder.Poly2Tri");
+			string probuildershit4 = Path.Combine(incorrectPath + "\\Unity.ProBuilder.Stl");
+			string tmp_folder = Path.Combine(incorrectPath + "\\Unity.TextMeshPro");
+			try
+			{
+				RecursiveSearchAndDelete(incorrectPath, "InputManager.cs.meta");
+				Directory.Delete(probuildershit1, true);
+				Directory.Delete(probuildershit2, true);
+				Directory.Delete(probuildershit3, true);
+				Directory.Delete(probuildershit4, true);
+				Directory.Delete(tmp_folder, true);
+			}
+			catch (Exception ex)
+			{
+				Log($"Error{ex.Message}. Post processing (or, a part of it) failed.");
+				Console.ReadLine();
+				logWriter.Close();
+				Environment.Exit(0);
+			}
+			Log($"It's done! Envy & Spite 1.4.0 has been successfully set up! Now open {projectPath} in Unity Hub to open the editor.\n Press enter to exit.");
+			Console.ReadKey();
 		}
-		string probuildershit1 = Path.Combine(incorrectPath + "\\Unity.ProBuilder");
-		string probuildershit2 = Path.Combine(incorrectPath + "\\Unity.ProBuilder.KdTree");
-		string probuildershit3 = Path.Combine(incorrectPath + "\\Unity.ProBuilder.Poly2Tri");
-		string probuildershit4 = Path.Combine(incorrectPath + "\\Unity.ProBuilder.Stl");
-		string tmp_folder = Path.Combine(incorrectPath + "\\Unity.TextMeshPro");
-		try
-		{
-			RecursiveSearchAndDelete(incorrectPath, "InputManager.cs.meta");
-			Directory.Delete(probuildershit1, true);
-			Directory.Delete(probuildershit2, true);
-			Directory.Delete(probuildershit3, true);
-			Directory.Delete(probuildershit4, true);
-			Directory.Delete(tmp_folder, true);
-		}
-		catch (Exception ex)
-		{
-			Console.WriteLine($"Error{ex.Message}. Post processing (or, a part of it) failed.");
-			Console.ReadLine();
-			Environment.Exit(0);
-		}
-		Console.WriteLine($"It's done! Envy & Spite 1.4.0 has been sucessfully set up! Now open {projectPath} in Unity Hub to open the editor.\n Press enter to exit.");
-		Console.ReadKey();
 	}
 	public static void RecursiveSearchAndDelete(string directoryPath, string fileName)
 	{
