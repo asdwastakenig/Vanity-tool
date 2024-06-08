@@ -143,14 +143,6 @@ namespace AssetRipper.GUI.Web.Pages
 						File.Delete(file);
 					}
 				}
-
-				foreach (string file in Directory.GetFiles(folderPath, "music_assets*", SearchOption.AllDirectories))
-				{
-					if (!file.EndsWith("music_assets_.bundle"))
-					{
-						File.Delete(file);
-					}
-				}
 			}
 			private static readonly string TempDirectory = Path.Combine(Path.GetTempPath(), "ULTRAKILL_Data");
 		}
