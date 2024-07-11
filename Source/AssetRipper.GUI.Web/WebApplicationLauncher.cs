@@ -72,7 +72,20 @@ public static class WebApplicationLauncher
 		}
 	}
 
-	public static void Launch()
+	public static bool isExtractionDone = false;
+	public static string[] borkedMetaFiles = new string[]
+		{
+			"InputManager.cs.meta",
+			"Bootstrap.cs.meta",
+			"InputExtensions.cs.meta",
+			"RaycastResult.cs.meta",
+			"CombineMeshes.cs.meta",
+			"PlayerInput.cs.meta",
+			"SteamController.cs.meta"
+		};
+	public static int GUIDC_ExitCode;
+
+	public static void Launch() //basically where the entirety of Vanity is initialized
 	{
 		using (StreamWriter logWriter = new StreamWriter("latestlog.txt", true))
 		{
@@ -81,6 +94,8 @@ public static class WebApplicationLauncher
 				Console.WriteLine(message);
 				logWriter.WriteLine(message);
 			}
+
+
 
 			WelcomeMessage.Print();
 			Log("Please enter the full path to the location where you want to install Envy & Spite: ");
@@ -91,7 +106,10 @@ public static class WebApplicationLauncher
 			{
 				Log("Downloading the Envy & Spite 1.4.0 project off of Github...");
 				DownloadAndExtractZip("https://github.com/ImSimonNow/simons_files/raw/main/es140_simon.zip", installPath);
-				Log("Installation completed successfully.");
+				while (!isExtractionDone)
+				{
+					System.Threading.Thread.Sleep(1);
+				}
 			}
 			catch (Exception ex)
 			{
@@ -103,8 +121,7 @@ public static class WebApplicationLauncher
 
 			string assetsPath = Path.Combine(installPath, "E&S 1.4.0\\Assets");
 			string projectPath = Path.Combine(installPath, "E&S 1.4.0\\");
-			Log("The path to your Assets path is: " + assetsPath + "(don't worry it's debug stuff :))");
-			Log("--EXTRACTION PHASE--");
+			Log("--ASSET EXTRACTION PHASE--");
 			Log("Enter the FULL PATH to your ULTRAKILL_Data folder (e.g:C:\\ULTRAKILL\\ULTRAKILL_Data):");
 			string ukDataPath = Console.ReadLine();
 			logWriter.WriteLine(ukDataPath);
@@ -210,15 +227,16 @@ public static class WebApplicationLauncher
 			SearchAndModifyMetaFiles(UKAssets);
 			string incorrectPath = Path.Combine(UKAssets, "ExportedProject", "Assets", "Scripts");
 			string libPath = Path.Combine(installPath, "E&S 1.4.0\\Library\\PackageCache");
-			Log("GUID Patching (THIS USUALLY TAKES A WHILE!)");
+			Log("--GUID Patching--");
 			string guidArguments = $"\"{incorrectPath}\" \"{libPath}\" \"{assetsPath}\"";
+			DeleteFilesRecursively(incorrectPath, borkedMetaFiles);
 			using (Process process = System.Diagnostics.Process.Start(@"GUID_Corrector.exe", guidArguments))
 			{
 				process.WaitForExit();
 
-				int exitCode = process.ExitCode;
+				GUIDC_ExitCode = process.ExitCode;
 
-				Log($"GUID_Corrector.exe process exited with code {exitCode}");
+				Log($"GUID_Corrector.exe process exited with code {GUIDC_ExitCode}");
 			}
 			string probuildershit1 = Path.Combine(incorrectPath + "\\Unity.ProBuilder");
 			string probuildershit2 = Path.Combine(incorrectPath + "\\Unity.ProBuilder.KdTree");
@@ -227,7 +245,6 @@ public static class WebApplicationLauncher
 			string tmp_folder = Path.Combine(incorrectPath + "\\Unity.TextMeshPro");
 			try
 			{
-				RecursiveSearchAndDelete(incorrectPath, "InputManager.cs.meta");
 				Directory.Delete(probuildershit1, true);
 				Directory.Delete(probuildershit2, true);
 				Directory.Delete(probuildershit3, true);
@@ -241,32 +258,39 @@ public static class WebApplicationLauncher
 				logWriter.Close();
 				Environment.Exit(0);
 			}
-			Log($"It's done! Envy & Spite 1.4.0 has been successfully set up! Now open {projectPath} in Unity Hub to open the editor.\n Press enter to exit.");
-			Console.ReadKey();
-		}
-	}
-	public static void RecursiveSearchAndDelete(string directoryPath, string fileName)
-	{
-		try
-		{
-			if (Directory.Exists(directoryPath))
+			if(GUIDC_ExitCode == 0)
 			{
-				string[] files = Directory.GetFiles(directoryPath, fileName);
-
-				foreach (string file in files)
-				{
-					Console.WriteLine($"Deleting file: {file}");
-					File.Delete(file);
-				}
-				string[] subDirectories = Directory.GetDirectories(directoryPath);
-				foreach (string subDirectory in subDirectories)
-				{
-					RecursiveSearchAndDelete(subDirectory, fileName);
-				}
+				Log($"It's done! Envy & Spite 1.4.0 has been successfully set up! Now open {projectPath} in Unity Hub to open the editor.\n Press enter to exit.");
 			}
 			else
 			{
-				Console.WriteLine($"Directory not found: {directoryPath}");
+				Log($"GUID Corrector didn't exit correctly (non-zero exit code), so something probably went wrong. It is recommended to delete the E&S 1.4.0 project folder & start again.");
+			}
+			Console.ReadKey();
+		}
+	}
+
+	public static void DeleteFilesRecursively(string folderPath, string[] filesToDelete)
+	{
+		try
+		{
+			string[] files = Directory.GetFiles(folderPath);
+
+			foreach (string file in files)
+			{
+				string fileName = Path.GetFileName(file);
+				if (Array.Exists(filesToDelete, element => element == fileName))
+				{
+					File.Delete(file);
+					Console.WriteLine($"Deleted: {file}");
+				}
+			}
+
+			string[] subDirectories = Directory.GetDirectories(folderPath);
+
+			foreach (string subDirectory in subDirectories)
+			{
+				DeleteFilesRecursively(subDirectory, filesToDelete);
 			}
 		}
 		catch (Exception ex)
@@ -274,7 +298,6 @@ public static class WebApplicationLauncher
 			Console.WriteLine($"An error occurred: {ex.Message}");
 		}
 	}
-
 	static void SearchAndModifyMetaFiles(string directoryPath)
 	{
 		try
@@ -323,19 +346,37 @@ public static class WebApplicationLauncher
 			Console.WriteLine($"Error modifying {filePath}: {ex.Message}");
 		}
 	}
+
 	private static void DownloadAndExtractZip(string url, string extractPath)
 	{
 		using (WebClient client = new WebClient())
 		{
 			string tempZipFile = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString() + ".zip");
-			client.DownloadFile(url, tempZipFile);
-			Console.WriteLine("Extracting...");
-			ZipFile.ExtractToDirectory(tempZipFile, extractPath);
-			File.Delete(tempZipFile);
+
+			client.DownloadProgressChanged += (sender, e) =>
+			{
+				Console.Write($"\rProgress: {e.ProgressPercentage}% done");
+			};
+
+			client.DownloadFileCompleted += (sender, e) =>
+			{
+				Console.WriteLine("\nDownload completed.");
+				Console.WriteLine("Extracting...");
+				ZipFile.ExtractToDirectory(tempZipFile, extractPath);
+				File.Delete(tempZipFile);
+				Console.WriteLine("Extraction completed.");
+				isExtractionDone = true;
+			};
+
+			client.DownloadFileAsync(new Uri(url), tempZipFile);
+			while (client.IsBusy)
+			{
+				System.Threading.Thread.Sleep(100);
+			}
 		}
 	}
 
-private static ILoggingBuilder ConfigureLoggingLevel(this ILoggingBuilder builder)
+	private static ILoggingBuilder ConfigureLoggingLevel(this ILoggingBuilder builder)
 	{
 		builder.Services.Add(ServiceDescriptor.Singleton<IConfigureOptions<LoggerFilterOptions>>(
 			new LifetimeOrWarnConfigureOptions()));
