@@ -4,6 +4,10 @@
 
 Alright, here’s the rundown of which versions are getting the love and which ones... not so much. Some of these are a bit more temperamental than others, so please be patient. I'll try to keep it updated, but hey, life happens.
 
+Also Checkmark means yes.
+X means no(obviously yall)
+and the square thingy.. is a ... maybe?
+
 | Version         | Supported           |
 | --------------- | ------------------- |
 | Newest          | :white_check_mark:  |
